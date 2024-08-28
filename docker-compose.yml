@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  postgres_database:
+    container_name: try_ecom
+    image: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgres/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: ecommerce
+      POSTGRES_PASSWORD: ecommerce
+
+  node:
+    depends_on: 
+      - postgres_database
+    build: .
+    ports:
+      - "3000:3000"
+
+volumes:
+  postgres_data:
